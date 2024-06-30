@@ -1,5 +1,5 @@
 package wasi:random@0.2.0;
-/// 不安全的伪随机数的不安全接口。
+/// insecure接口用于不安全的伪随机数。
 ///
 /// 它旨在至少在Unix系列平台和Windows之间具有可移植性。
 interface insecure {
