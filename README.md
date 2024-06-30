@@ -19,7 +19,7 @@ WASI random必须有至少可以在Windows、macOS和Linux上通过测试套件(
 
 WASI random必须至少有两个完整独立的实现。
 
-## Table of Contents
+## 目录（Table of Contents）
 
 - [介绍（Introduction）](#介绍introduction)
 - [目标（Goals）](#目标goals)
@@ -28,11 +28,16 @@ WASI random必须至少有两个完整独立的实现。
   - [Use case 1](#use-case-1)
   - [Use case 2](#use-case-2)
 - [详细设计讨论（Detailed design discussion）](#详细设计讨论detailed-design-discussion)
-  - [[Tricky design choice 1]](#tricky-design-choice-1)
-  - [[Tricky design choice 2]](#tricky-design-choice-2)
+  - [主要API：获取加密安全的伪随机字节（Main API: getting cryptographically-secure pseudo-random bytes）](#主要api获取加密安全的伪随机字节main-api-getting-cryptographically-secure-pseudo-random-bytes)
+  - [主要API：更快地获取加密安全的伪随机字节（Main API: getting cryptographically-secure pseudo-random bytes faster）](#主要api更快地获取加密安全的伪随机字节main-api-getting-cryptographically-secure-pseudo-random-bytes-faster)
+  - [不安全的API：哈希映射DoS防护（Insecure API: Hash-map DoS protection）](#不安全的api哈希映射dos防护insecure-api-hash-map-dos-protection)
 - [考虑替代方案（Considered alternatives）](#考虑替代方案considered-alternatives)
-  - [[Alternative 1]](#alternative-1)
-  - [[Alternative 2]](#alternative-2)
+  - [如果系统在早期启动时缺乏足够的熵会怎样？（What if the system lacks sufficient entropy during early boot?）](#如果系统在早期启动时缺乏足够的熵会怎样what-if-the-system-lacks-sufficient-entropy-during-early-boot)
+  - [如果宿主平台上的随机性API较弱或者存在缺陷会发生什么情况？（What should happen on host platforms with weak or broken randomness APIs?）](#如果宿主平台上的随机性api较弱或者存在缺陷会发生什么情况what-should-happen-on-host-platforms-with-weak-or-broken-randomness-apis)
+  - [是否应该有一个随机性资源，且API是否应该采取处理？（Should there be a randomness resource, and should the API take a handle?）](#是否应该有一个随机性资源且api是否应该采取处理should-there-be-a-randomness-resource-and-should-the-api-take-a-handle)
+  - [是否应提供随机数据作为stream？（Should random data be provided as a stream?）](#是否应提供随机数据作为streamshould-random-data-be-provided-as-a-stream)
+  - [此API是否应该指定安全位？（Should the API specify a number of bits of security?）](#此api是否应该指定安全位should-the-api-specify-a-number-of-bits-of-security)
+  - [为什么insecure-random的返回值是固定大小？（Why is insecure-random a fixed-sized return value?）](#为什么insecure-random的返回值是固定大小why-is-insecure-random-a-fixed-sized-return-value)
 - [项目相关方利益 & 反馈（Stakeholder Interest & Feedback）](#项目相关方利益--反馈stakeholder-interest--feedback)
 - [参考文献 & 致谢（References & acknowledgements）](#参考文献--致谢references--acknowledgements)
 
@@ -139,8 +144,8 @@ CSPRNG被认为已经足够好了，在大多数系统的大多数情况下可�
 
 ### 此API是否应该指定安全位？（Should the API specify a number of bits of security?）
 
-最佳实践建议实现应至少提供196个安全性位。
-然而，许多宿主平台的CSPRNG API目前并未记录其安全性位，
+最佳实践建议实现应至少提供196个安全位。
+然而，许多宿主平台的CSPRNG API目前并未记录其安全位，
 且不希望要求wasm引擎在已有CSPRNG的宿主平台上运行自己的CSPRNG，
 因此目前API不指定具体的位数。
 
