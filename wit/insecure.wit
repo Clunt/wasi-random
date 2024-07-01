@@ -12,7 +12,7 @@ interface insecure {
     /// 但是建议实现应返回均匀分布且具有长周期的值。
     get-insecure-random-bytes: func(len: u64) -> list<u8>;
 
-    /// 返回不安全伪随机的`u64`值。Return an insecure pseudo-random `u64` value.
+    /// 返回不安全伪随机的`u64`值。
     ///
     /// 此函数返回与`get-insecure-random-bytes`相同类型的数据，表示为`u64`。
     get-insecure-random-u64: func() -> u64;
