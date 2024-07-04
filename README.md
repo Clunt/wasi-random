@@ -4,7 +4,7 @@
 
 ### 当前阶段（Current Phase）
 
-WASI-random目前处于[第3阶段(Phase 3)][Phase 3]。
+WASI-random当前处于[第3阶段(Phase 3)][Phase 3]。
 
 [Phase 3]: https://github.com/WebAssembly/WASI/blob/main/Proposals.md#phase-3---implementation-phase-cg--wg
 
@@ -13,7 +13,6 @@ WASI-random目前处于[第3阶段(Phase 3)][Phase 3]。
 - Dan Gohman
 
 ### 可移植性标准（Portability Criteria）
-
 
 WASI random必须有至少可以在Windows、macOS和Linux上通过测试套件(testsuite)的主机实现。
 
